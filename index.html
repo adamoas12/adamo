@@ -269,7 +269,6 @@
             <div class="credential-item">📜 dhakhtarka haweenka iyo caruurta</div>
         </div>
     </section>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -290,7 +289,7 @@
         }
 
         h2 {
-            margin: 0 0 15px 0;
+            margin-bottom: 15px;
             font-size: 1.5rem;
         }
 
@@ -298,36 +297,27 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
-            padding: 0;
         }
 
         .gallery-item {
             aspect-ratio: 1;
-            text-align: center;
             border: 1px solid #ddd;
-            position: relative;
-            transition: 0.3s ease-in-out;
             background-color: white;
             border-radius: 8px;
             overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
         }
 
         .gallery-item:hover {
             transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-
-        .gallery-item span {
-            font-size: 14px;
-            color: #666;
-            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            cursor: pointer;
         }
 
         /* Modal styles */
@@ -339,9 +329,9 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            z-index: 1000;
             justify-content: center;
             align-items: center;
+            z-index: 1000;
         }
 
         .modal img {
@@ -359,48 +349,12 @@
             font-weight: bold;
             cursor: pointer;
         }
-
-        @media (max-width: 768px) {
-            .work-gallery {
-                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-                gap: 10px;
-            }
-        }
     </style>
 </head>
 <body>
     <div class="container">
-       <section class="work-gallery">
-    <div class="gallery-item">
-        <img src="https://raw.githubusercontent.com/adamoas12/adamo/main/2023-03-28%2019.20.15.jpg" alt="Hospital" onclick="openModal(this.src)">
-    </div>
-    <div class="gallery-item">
-        <img src="https://raw.githubusercontent.com/yourusername/yourrepository/main/conference.jpg" alt="Conference" onclick="openModal(this.src)">
-    </div>
-    <div class="gallery-item">
-        <img src="https://raw.githubusercontent.com/yourusername/yourrepository/main/team.jpg" alt="Team" onclick="openModal(this.src)">
-    </div>
-    <div class="gallery-item">
-        <img src="https://raw.githubusercontent.com/yourusername/yourrepository/main/office.jpg" alt="Office" onclick="openModal(this.src)">
-    </div>
-    <div class="gallery-item">
-        <img src="https://raw.githubusercontent.com/yourusername/yourrepository/main/meeting.jpg" alt="Meeting" onclick="openModal(this.src)">
-    </div>
-</section>
-
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Conference" onclick="openModal(this.src)">
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Team" onclick="openModal(this.src)">
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Office" onclick="openModal(this.src)">
-            </div>
-            <div class="gallery-item">
-                <img src="/api/placeholder/400/400" alt="Meeting" onclick="openModal(this.src)">
-            </div>
-        </section>
+        <h2>Work Gallery</h2>
+        <section class="work-gallery" id="gallery"></section>
     </div>
 
     <!-- Modal for full-size image view -->
@@ -410,49 +364,47 @@
     </div>
 
     <script>
-        // Store images in localStorage
-   const defaultImages = {
-    'hospital': <img src="https://raw.githubusercontent.com/adamoas12/adamo/main/2023-03-28%2019.20.15.jpg" alt="Gallery Image">
-    'conference': 'https://raw.githubusercontent.com/adamoas12/adamo/refs/heads/main/2023-03-28%2019.20.15.jpg',
-    'team': 'https://raw.githubusercontent.com/yourusername/yourrepository/main/team.jpg',
-    'office': 'https://raw.githubusercontent.com/yourusername/yourrepository/main/office.jpg',
-    'meeting': 'https://raw.githubusercontent.com/yourusername/yourrepository/main/meeting.jpg'
-        };
+        // List of image URLs hosted on GitHub
+        const imageUrls = [
+            "https://raw.githubusercontent.com/adamoas12/adamo/main/2023-03-28%2019.20.15.jpg",
+            "https://raw.githubusercontent.com/yourusername/yourrepository/main/conference.jpg",
+            "https://raw.githubusercontent.com/yourusername/yourrepository/main/team.jpg",
+            "https://raw.githubusercontent.com/yourusername/yourrepository/main/office.jpg",
+            "https://raw.githubusercontent.com/yourusername/yourrepository/main/meeting.jpg"
+        ];
 
-        // Load saved images on page load
-        window.onload = function() {
-            loadSavedImages();
-        };
-
-        function loadSavedImages() {
-            const savedImages = JSON.parse(localStorage.getItem('galleryImages')) || defaultImages;
-            const galleryItems = document.querySelectorAll('.gallery-item img');
-            
-            Object.values(savedImages).forEach((src, index) => {
-                if (galleryItems[index]) {
-                    galleryItems[index].src = src;
-                }
-            });
-        }
+        // Dynamically populate gallery
+        const gallery = document.getElementById("gallery");
+        imageUrls.forEach(src => {
+            const div = document.createElement("div");
+            div.classList.add("gallery-item");
+            div.innerHTML = `<img src="${src}" alt="Gallery Image" onclick="openModal('${src}')">`;
+            gallery.appendChild(div);
+        });
 
         // Modal functions
         function openModal(imgSrc) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modal.style.display = 'flex';
+            const modal = document.getElementById("imageModal");
+            const modalImg = document.getElementById("modalImage");
+            modal.style.display = "flex";
             modalImg.src = imgSrc;
         }
 
         function closeModal() {
-            document.getElementById('imageModal').style.display = 'none';
+            document.getElementById("imageModal").style.display = "none";
         }
 
         // Close modal when pressing ESC
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
+        document.addEventListener("keydown", function(event) {
+            if (event.key === "Escape") {
                 closeModal();
             }
         });
     </script>
 </body>
 </html>
+
+
+
+ 
+   
