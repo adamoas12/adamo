@@ -270,7 +270,7 @@
         </div>
     </section>
 
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -298,11 +298,12 @@
             position: relative;
             transition: 0.3s ease-in-out;
             background-color: white;
-            min-height: 150px;
+            min-height: 200px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-direction: column;
+            overflow: hidden; /* Prevent overflow */
         }
 
         .gallery-item:hover {
@@ -319,11 +320,17 @@
             margin-top: 10px;
             border-radius: 5px;
             width: 100%;
-            max-height: 200px;
+            height: 100%;
+            object-fit: cover; /* Maintain aspect ratio and cover box */
             display: none;
         }
 
         input[type="file"] {
+            display: none;
+        }
+
+        /* Hide upload function if user is not authorized */
+        .hidden {
             display: none;
         }
     </style>
@@ -333,19 +340,19 @@
     <h2>Work Gallery</h2>
 
     <section class="work-gallery">
-        <div class="gallery-item" onclick="document.getElementById('uploadHospital').click();">
+        <div class="gallery-item" onclick="uploadImage('uploadHospital')" id="hospitalBox">
             <span id="textHospital">Add hospital photo</span>
             <input type="file" id="uploadHospital" accept="image/*">
             <img id="previewHospital" alt="Hospital Photo">
         </div>
 
-        <div class="gallery-item" onclick="document.getElementById('uploadConference').click();">
+        <div class="gallery-item" onclick="uploadImage('uploadConference')" id="conferenceBox">
             <span id="textConference">Add conference photo</span>
             <input type="file" id="uploadConference" accept="image/*">
             <img id="previewConference" alt="Conference Photo">
         </div>
 
-        <div class="gallery-item" onclick="document.getElementById('uploadTeam').click();">
+        <div class="gallery-item" onclick="uploadImage('uploadTeam')" id="teamBox">
             <span id="textTeam">Add team photo</span>
             <input type="file" id="uploadTeam" accept="image/*">
             <img id="previewTeam" alt="Team Photo">
@@ -353,6 +360,37 @@
     </section>
 
     <script>
+        // Set allowed user (your username or email)
+        const allowedUser = "admin"; // Change this to your username or email
+
+        function checkUser() {
+            // Prompt for username (you can replace this with actual login)
+            let username = localStorage.getItem("username");
+
+            if (!username) {
+                username = prompt("Enter your username:");
+                localStorage.setItem("username", username);
+            }
+
+            if (username !== allowedUser) {
+                document.getElementById("hospitalBox").classList.add("hidden");
+                document.getElementById("conferenceBox").classList.add("hidden");
+                document.getElementById("teamBox").classList.add("hidden");
+                alert("You do not have permission to upload images.");
+            }
+        }
+
+        function uploadImage(inputId) {
+            // Check if user is authorized
+            let username = localStorage.getItem("username");
+            if (username !== allowedUser) {
+                alert("Only the admin can upload images.");
+                return;
+            }
+
+            document.getElementById(inputId).click();
+        }
+
         function previewImage(inputId, imgId, textId) {
             const input = document.getElementById(inputId);
             const preview = document.getElementById(imgId);
@@ -376,8 +414,10 @@
         previewImage("uploadHospital", "previewHospital", "textHospital");
         previewImage("uploadConference", "previewConference", "textConference");
         previewImage("uploadTeam", "previewTeam", "textTeam");
-    </script>
 
+        // Check user on page load
+        checkUser();
+    </script>
 
 </body>
 </html>
