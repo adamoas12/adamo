@@ -279,35 +279,54 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 20px;
+            margin: 0;
             background-color: #f8f8f8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+        }
+
+        h2 {
+            margin: 0 0 15px 0;
+            font-size: 1.5rem;
         }
 
         .work-gallery {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            padding: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 15px;
+            padding: 0;
         }
 
         .gallery-item {
+            aspect-ratio: 1;
+            text-align: center;
+            border: 1px solid #ddd;
             position: relative;
-            border: 2px solid #ccc;
+            transition: 0.3s ease-in-out;
+            background-color: white;
             border-radius: 8px;
             overflow: hidden;
-            background-color: white;
-            transition: transform 0.3s ease;
-            height: 300px;
         }
 
         .gallery-item:hover {
-            transform: scale(1.03);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .gallery-item span {
+            font-size: 14px;
+            color: #666;
+            cursor: pointer;
         }
 
         .gallery-item img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
             cursor: pointer;
         }
 
@@ -315,90 +334,112 @@
         .modal {
             display: none;
             position: fixed;
-            z-index: 1000;
-            left: 0;
             top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0,0,0,0.9);
-            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
         }
 
-        .modal-content {
-            margin: auto;
-            display: block;
-            width: 80%;
-            max-width: 1200px;
-            animation: zoom 0.3s;
+        .modal img {
+            max-width: 90%;
+            max-height: 90vh;
+            object-fit: contain;
         }
 
-        @keyframes zoom {
-            from {transform: scale(0)}
-            to {transform: scale(1)}
-        }
-
-        .close {
+        .close-modal {
             position: absolute;
             top: 15px;
-            right: 35px;
-            color: white;
-            font-size: 40px;
+            right: 25px;
+            color: #f1f1f1;
+            font-size: 30px;
             font-weight: bold;
             cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .work-gallery {
+                grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+                gap: 10px;
+            }
         }
     </style>
 </head>
 <body>
+    <div class="container">
+        <h2>Work Gallery</h2>
+        <section class="work-gallery">
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/400" alt="Hospital" onclick="openModal(this.src)">
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/400" alt="Conference" onclick="openModal(this.src)">
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/400" alt="Team" onclick="openModal(this.src)">
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/400" alt="Office" onclick="openModal(this.src)">
+            </div>
+            <div class="gallery-item">
+                <img src="/api/placeholder/400/400" alt="Meeting" onclick="openModal(this.src)">
+            </div>
+        </section>
+    </div>
 
-    <h2>Work Gallery</h2>
-
-    <section class="work-gallery">
-        <!-- Add your images directly in the code -->
-        <div class="gallery-item">
-            <img src="image1.jpg" alt="Hospital Photo" onclick="openModal(this)">
-        </div>
-        <div class="gallery-item">
-            <img src="image2.jpg" alt="Conference Photo" onclick="openModal(this)">
-        </div>
-        <div class="gallery-item">
-            <img src="image3.jpg" alt="Team Photo" onclick="openModal(this)">
-        </div>
-        <!-- Add more images as needed -->
-        <div class="gallery-item">
-            <img src="image4.jpg" alt="Event Photo" onclick="openModal(this)">
-        </div>
-        <div class="gallery-item">
-            <img src="image5.jpg" alt="Project Photo" onclick="openModal(this)">
-        </div>
-    </section>
-
-    <!-- The Modal -->
-    <div id="modal" class="modal">
-        <span class="close" onclick="closeModal()">&times;</span>
-        <img class="modal-content" id="modal-img">
+    <!-- Modal for full-size image view -->
+    <div id="imageModal" class="modal" onclick="closeModal()">
+        <span class="close-modal">&times;</span>
+        <img id="modalImage" src="" alt="Full size image">
     </div>
 
     <script>
-        // Function to open modal with full image
-        function openModal(img) {
-            const modal = document.getElementById("modal");
-            const modalImg = document.getElementById("modal-img");
-            modal.style.display = "block";
-            modalImg.src = img.src;
+        // Store images in localStorage
+        const defaultImages = {
+            'hospital': '/api/placeholder/400/400',
+            'conference': '/api/placeholder/400/400',
+            'team': '/api/placeholder/400/400',
+            'office': '/api/placeholder/400/400',
+            'meeting': '/api/placeholder/400/400'
+        };
+
+        // Load saved images on page load
+        window.onload = function() {
+            loadSavedImages();
+        };
+
+        function loadSavedImages() {
+            const savedImages = JSON.parse(localStorage.getItem('galleryImages')) || defaultImages;
+            const galleryItems = document.querySelectorAll('.gallery-item img');
+            
+            Object.values(savedImages).forEach((src, index) => {
+                if (galleryItems[index]) {
+                    galleryItems[index].src = src;
+                }
+            });
         }
 
-        // Function to close modal
+        // Modal functions
+        function openModal(imgSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modal.style.display = 'flex';
+            modalImg.src = imgSrc;
+        }
+
         function closeModal() {
-            document.getElementById("modal").style.display = "none";
+            document.getElementById('imageModal').style.display = 'none';
         }
 
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById("modal");
-            if (event.target === modal) {
+        // Close modal when pressing ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
                 closeModal();
             }
-        }
+        });
     </script>
 </body>
 </html>
