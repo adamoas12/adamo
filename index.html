@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dr. Abdulwadud Adams - Medical Consultant</title>
+    <!-- Add Font Awesome for social icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
             --primary: #2A5C82;
@@ -23,9 +25,62 @@
         body {
             background: var(--light);
             color: var(--dark);
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
-        /* Updated Profile Header */
+        /* Dark Mode Styles */
+        body.dark-mode {
+            --light: #1A2B3C;
+            --dark: #F5F9FC;
+            background: var(--light);
+            color: var(--dark);
+        }
+
+        body.dark-mode .experience-timeline {
+            background: #2A3B4C;
+        }
+
+        body.dark-mode .about-section {
+            background: #0F1A24;
+        }
+
+        /* Dark Mode Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 25px;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        /* Social Media Icons */
+        .social-media {
+            margin-top: 1.5rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-media a {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .social-media a:hover {
+            transform: translateY(-3px);
+        }
+
+        body.dark-mode .social-media a {
+            color: var(--accent);
+        }
+
+        /* Rest of your original CSS styles... */
         .profile-header {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -35,7 +90,6 @@
             color: white;
         }
 
-        /* Updated Profile Frame Styles */
         .photo-container {
             position: relative;
             width: 300px;
@@ -83,7 +137,6 @@
             to { transform: rotate(360deg); }
         }
 
-        /* Add Shine Effect */
         .profile-photo:hover {
             animation: shine 1.5s;
         }
@@ -94,7 +147,6 @@
             100% { filter: brightness(1); }
         }
 
-        /* Contact Card */
         .contact-card {
             background: rgba(255,255,255,0.1);
             padding: 2rem;
@@ -120,7 +172,6 @@
             border: 1px solid rgba(255, 0, 0, 0.5);
         }
 
-        /* Experience Timeline */
         .experience-timeline {
             padding: 4rem 2rem;
             background: white;
@@ -155,7 +206,6 @@
             justify-content: center;
         }
 
-        /* About Section */
         .about-section {
             padding: 4rem 2rem;
             background: var(--dark);
@@ -179,7 +229,6 @@
             border-radius: 5px;
         }
 
-        /* Work Gallery */
         .work-gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -213,6 +262,9 @@
     </style>
 </head>
 <body>
+    <!-- Dark Mode Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
     <!-- Profile Header -->
     <section class="profile-header">
         <div class="photo-container">
@@ -225,52 +277,57 @@
                 <p>📞 +252 634 321 411</p>
                 <p>✉️ abduladamhasan12@gmai.com</p>
             </div>
+            <!-- Social Media Icons -->
+            <div class="social-media">
+                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+            </div>
             <div class="emergency-badge">
                  24/7  Services Available
             </div>
         </div>
     </section>
 
-    <!-- Professional Experience -->
-    <section class="experience-timeline">
-        <h2>dhakhtaradan ka shaqeeyay waxa kamida</h2>
-        <div class="hospital-card">
-            <div class="hospital-logo">🏥</div>
-            <div>
-                <h3>Masaka Regional Referral Hospital</h3>
-                <p>2022-2023</p>
-                <p>ka hortagga xanuunada faafa • Improved patient care protocols</p>
-            </div>
+<!-- Professional Experience -->
+<section class="experience-timeline">
+    <h2>dhakhtaradan ka shaqeeyay waxa kamida</h2>
+    <div class="hospital-card">
+        <div class="hospital-logo">🏥</div>
+        <div>
+            <h3>Masaka Regional Referral Hospital</h3>
+            <p>2022-2023</p>
+            <p>ka hortagga xanuunada faafa • Improved patient care protocols</p>
         </div>
-        <div class="hospital-card">
-            <div class="hospital-logo">🏥</div>
-            <div>
-                <h3>Kayunga Regional Hospital</h3>
-                <p>2023-2024</p>
-                <p>cudurada uur kujirta •khibrad ban ka qatay</p>
-            </div>
+    </div>
+    <div class="hospital-card">
+        <div class="hospital-logo">🏥</div>
+        <div>
+            <h3>Kayunga Regional Hospital</h3>
+            <p>2023-2024</p>
+            <p>cudurada uur kujirta •khibrad ban ka qatay</p>
         </div>
-        <div class="hospital-card">
-            <div class="hospital-logo">🏥</div>
-            <div>
-                <h3>Mubende Regional Referral Hospital</h3>
-                <p>2024-Present</p>
-                <p>xanuunada haweenka ku dhaca • </p>
-            </div>
+    </div>
+    <div class="hospital-card">
+        <div class="hospital-logo">🏥</div>
+        <div>
+            <h3>Mubende Regional Referral Hospital</h3>
+            <p>2024-Present</p>
+            <p>xanuunada haweenka ku dhaca • </p>
         </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about-section">
-        <h2>My Medical Philosophy</h2>
-        <p>[Waxaan aaminsanahay in daryeelka caafimaadku uu yahay xuquuq aasaasi ah oo qof kasta uu mudan yahay. Daaweyntu waa in aysan kaliya xakamayn xanuunka, balse ay kor u qaaddo tayada nolosha bukaanka. Waxaan xoogga saaraa daaweyn cilmi ku dhisan, naxariis leh, iyo horumarin joogto ah si aan u hubiyo in bukaankaygu helaan daryeel caafimaad oo heer sare ah. Caafimaadku maaha shaqo kaliya, waa ballanqaad aan u hayo bulshada.]</p>
-        <div class="credentials">
-            <div class="credential-item">🎓 dhakhtarka cudurada guud</div>
-            <div class="credential-item">📜 dhakhtarka haweenka iyo caruurta</div>
-        </div>
-    </section>
-
-    <!DOCTYPE html>
+    </div>
+</section>
+  <!-- About Section -->
+  <section class="about-section">
+    <h2>My Medical Philosophy</h2>
+    <p>[Waxaan aaminsanahay in daryeelka caafimaadku uu yahay xuquuq aasaasi ah oo qof kasta uu mudan yahay. Daaweyntu waa in aysan kaliya xakamayn xanuunka, balse ay kor u qaaddo tayada nolosha bukaanka. Waxaan xoogga saaraa daaweyn cilmi ku dhisan, naxariis leh, iyo horumarin joogto ah si aan u hubiyo in bukaankaygu helaan daryeel caafimaad oo heer sare ah. Caafimaadku maaha shaqo kaliya, waa ballanqaad aan u hayo bulshada.]</p>
+    <div class="credentials">
+        <div class="credential-item">🎓 dhakhtarka cudurada guud</div>
+        <div class="credential-item">📜 dhakhtarka haweenka iyo caruurta</div>
+    </div>
+</section>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -299,7 +356,6 @@
             grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
             gap: 15px;
         }
-
         .gallery-item {
             border: 1px solid #ddd;
             background-color: white;
@@ -337,7 +393,6 @@
             align-items: center;
             z-index: 1000;
         }
-
         .modal img {
             max-width: 90%;
             max-height: 90vh;
@@ -366,7 +421,6 @@
         <span class="close-modal">&times;</span>
         <img id="modalImage" src="" alt="Full size image">
     </div>
-
     <script>
         // List of image URLs hosted on GitHub
         const imageUrls = [
@@ -405,13 +459,14 @@
             }
         });
     </script>
+
+    <script>
+        // Theme Toggle Function
+        function toggleTheme() {
+            document.body.classList.toggle('dark-mode');
+            const toggleBtn = document.querySelector('.theme-toggle');
+            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌓';
+        }
+    </script>
 </body>
 </html>
-
-
-
-
-
-
- 
-   
