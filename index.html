@@ -270,11 +270,110 @@
         </div>
     </section>
 
-    <!-- Work Gallery -->
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f8f8;
+        }
+
+        .work-gallery {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+        }
+
+        .gallery-item {
+            width: 30%;
+            text-align: center;
+            border: 2px dashed #ccc;
+            padding: 20px;
+            cursor: pointer;
+            position: relative;
+            transition: 0.3s ease-in-out;
+            background-color: white;
+        }
+
+        .gallery-item:hover {
+            background-color: #f5f5f5;
+        }
+
+        .gallery-item label {
+            font-size: 16px;
+            color: #666;
+            cursor: pointer;
+            display: block;
+        }
+
+        .gallery-item img {
+            margin-top: 10px;
+            border-radius: 5px;
+            width: 100%;
+            max-height: 200px;
+            display: none;
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Work Gallery</h2>
+
     <section class="work-gallery">
-        <div class="gallery-item">Add hospital photo</div>
-        <div class="gallery-item">Add conference photo</div>
-        <div class="gallery-item">Add team photo</div>
+        <div class="gallery-item" onclick="document.getElementById('uploadHospital').click();">
+            <label>Add hospital photo</label>
+            <input type="file" id="uploadHospital" accept="image/*">
+            <img id="previewHospital" alt="Hospital Photo">
+        </div>
+
+        <div class="gallery-item" onclick="document.getElementById('uploadConference').click();">
+            <label>Add conference photo</label>
+            <input type="file" id="uploadConference" accept="image/*">
+            <img id="previewConference" alt="Conference Photo">
+        </div>
+
+        <div class="gallery-item" onclick="document.getElementById('uploadTeam').click();">
+            <label>Add team photo</label>
+            <input type="file" id="uploadTeam" accept="image/*">
+            <img id="previewTeam" alt="Team Photo">
+        </div>
     </section>
+
+    <script>
+        function previewImage(inputId, imgId) {
+            const input = document.getElementById(inputId);
+            const preview = document.getElementById(imgId);
+
+            input.addEventListener("change", function () {
+                const file = input.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = "block";
+                    };
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Activate preview function for all images
+        previewImage("uploadHospital", "previewHospital");
+        previewImage("uploadConference", "previewConference");
+        previewImage("uploadTeam", "previewTeam");
+    </script>
+
+</body>
+</html>
+
 </body>
 </html>
