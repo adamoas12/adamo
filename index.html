@@ -3,473 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dr. Abdulwadud Adams - Medical Consultant</title>
-    <!-- Add Font Awesome for social icons -->
+    <title>Note Saver</title>
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #07a33baf;
-            --accent: #129031;
-            --dark: #1A2B3C;
-            --light: #0ec439ad;
-            --neon-blue: #ab4b31;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', sans-serif;
-        }
-
-        body {
-            background: var(--light);
-            color: var(--dark);
-            transition: background 0.3s ease, color 0.3s ease;
-        }
-
-        /* Dark Mode Styles */
-        body.dark-mode {
-            --light: #1A2B3C;
-            --dark: #F5F9FC;
-            background: var(--light);
-            color: var(--dark);
-        }
-
-        body.dark-mode .experience-timeline {
-            background: #2A3B4C;
-        }
-
-        body.dark-mode .about-section {
-            background: #0F1A24;
-        }
-
-        /* Dark Mode Toggle Button */
-        .theme-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            background: var(--accent);
-            color: white;
-            border: none;
-            padding: 10px 15px;
-            border-radius: 25px;
-            cursor: pointer;
-            z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-        }
-
-        /* Social Media Icons */
-        .social-media {
-            margin-top: 1.5rem;
-            display: flex;
-            gap: 1rem;
-        }
-
-        .social-media a {
-            color: white;
-            font-size: 1.5rem;
-            transition: transform 0.3s ease;
-        }
-
-        .social-media a:hover {
-            transform: translateY(-3px);
-        }
-
-        body.dark-mode .social-media a {
-            color: var(--accent);
-        }
-
-        /* Rest of your original CSS styles... */
-        .profile-header {
-            display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 2rem;
-    padding: 4rem 2rem;
-    background: linear-gradient(to right, rgba(34, 121, 18, 0.448), rgba(19, 177, 58, 0.288));
-    color: white;
-    box-shadow: 0px 4px 10px rgba(219, 226, 22, 0.2);
-    border-radius: 15px;
-    margin: 2rem;
-        }
-
-        .photo-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            margin: 0 auto;
-        }
-
-        .profile-photo {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            position: relative;
-            z-index: 2;
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .photo-container::before {
-            content: '';
-            position: absolute;
-            inset: -8px;
-            background: linear-gradient(45deg, var(--neon-blue), var(--accent), var(--primary));
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            z-index: 1;
-            animation: rotate 4s linear infinite;
-        }
-
-        .photo-container::after {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
-            z-index: 0;
-            filter: blur(10px);
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .profile-photo:hover {
-            animation: shine 1.5s;
-        }
-
-        @keyframes shine {
-            0% { filter: brightness(1); }
-            50% { filter: brightness(1.2); }
-            100% { filter: brightness(1); }
-        }
-
-        .contact-card {
-            background: rgba(255,255,255,0.1);
-            padding: 2rem;
-            border-radius: 15px;
-            backdrop-filter: blur(10px);
-        }
-
-        .contact-card h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .contact-card p {
-            margin: 0.5rem 0;
-        }
-
-        .emergency-badge {
-            background: rgba(125, 16, 16, 0.506);
-            padding: 0.5rem 1rem;
-            border-radius: 5px;
-            margin-top: 1rem;
-            display: inline-block;
-            border: 1px solid rgba(239, 236, 236, 0.694);
-        }
-
-        .experience-timeline {
-            padding: 4rem 2rem;
-            background: rgba(250, 233, 223, 0.774);
-        }
-
-        .experience-timeline h2 {
-            font-size: 2rem;
-            margin-bottom: 2rem;
-            color: 1px solid rgba(239, 236, 236, 0.694);
-        }
-
-        .hospital-card {
-            display: grid;
-            grid-template-columns: 100px 1fr;
-            gap: 2rem;
-            padding: 2rem;
-            margin: 2rem 0;
-            background: var(--light);
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .hospital-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .hospital-logo {
-            font-size: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .about-section {
-            padding: 4rem 2rem;
-            background: var(--dark);
-            color: white;
-        }
-
-        .about-section h2 {
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .credentials {
-            display: flex;
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .credential-item {
-            background: rgba(13, 147, 49, 0.559);
-            padding: 1rem;
-            border-radius: 5px;
-        }
-
-        .work-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1rem;
-            padding: 2rem;
-        }
-
-        .gallery-item {
-            height: 250px;
-            background: #87780baf;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        @media (max-width: 768px) {
-            .profile-header {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-
-            .profile-photo {
-                margin: 0 auto;
-            }
-
-            .hospital-card {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Dark Mode Toggle Button -->
-    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
-
-    <!-- Profile Header -->
-    <section class="profile-header">
-        <div class="photo-container">
-            <img src="https://raw.githubusercontent.com/adamoas12/adamo/main/2023-01-17%2018.29.01.jpg" alt="DR. abdulwadud Adams" class="profile-photo">
-        </div>
-        <div class="contact-card">
-            <h1>Dr. Abdulwadud Adams</h1>
-            <p class="title"> Medical Consultant</p>
-            <div class="contact-info">
-                <p>📞 +252 634 321 411</p>
-                <p>✉️ abduladamhasan12@gmai.com</p>
+    <div class="layout">
+        <div class="sidebar" id="sidebar">
+            <div class="search-container">
+                <input type="text" id="searchNotes" placeholder="Search notes..." class="search-input">
             </div>
-            <!-- Social Media Icons -->
-            <div class="social-media">
-                <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
-            </div>
-            <div class="emergency-badge">
-                 24/7  Services Available
+            <div class="notes-sections">
+                <div class="favorites-section">
+                    <h3>Favorites</h3>
+                    <div class="note-list" id="favoriteNoteList"></div>
+                </div>
+                <div class="all-notes-section">
+                    <h3>All Notes</h3>
+                    <div class="note-list" id="noteList"></div>
+                </div>
             </div>
         </div>
-    </section>
-
-<!-- Professional Experience -->
-<section class="experience-timeline">
-    <h2>dhakhtaradan ka shaqeeyay waxa kamida</h2>
-    <div class="hospital-card">
-        <div class="hospital-logo">🏥</div>
-        <div>
-            <h3>Masaka Regional Referral Hospital</h3>
-            <p>2022-2023</p>
-            <p>ka hortagga xanuunada faafa • Improved patient care protocols</p>
+        <div class="main-content">
+            <nav class="top-nav">
+                <div class="nav-group">
+                    <button id="sidebarToggle" class="nav-button" title="Toggle Sidebar">
+                        <i class="far fa-file-lines"></i>
+                    </button>
+                    <button id="newNoteBtn" class="nav-button" title="New Note">
+                        <i class="fas fa-pencil"></i>
+                    </button>
+                </div>
+            </nav>
+            <div class="container">
+                <div class="content-center">
+                    <h1>Personal Note Saver</h1>
+                    <div class="note-form-container">
+                        <div class="note-form">
+                            <input type="text" id="noteName" placeholder="Note title">
+                            <div class="input-container">
+                                <textarea id="noteText" placeholder="Type your note here..."></textarea>
+                                <button id="saveButton" class="send-button">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="hospital-card">
-        <div class="hospital-logo">🏥</div>
-        <div>
-            <h3>Kayunga Regional Hospital</h3>
-            <p>2023-2024</p>
-            <p>cudurada uur kujirta •khibrad ban ka qatay</p>
+    
+    <!-- Note Editor Overlay -->
+    <div class="note-editor-overlay" id="noteEditorOverlay">
+        <div class="note-editor-content">
+            <div class="note-editor-header">
+                <h2 id="overlayNoteTitle"></h2>
+                <div class="note-editor-actions">
+                    <button class="editor-button" id="copyNoteBtn" title="Copy note">
+                        <i class="fas fa-copy"></i>
+                    </button>
+                    <button class="editor-button" id="editNoteBtn" title="Edit note">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="editor-button close-button" id="closeEditorBtn" title="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="note-editor-body">
+                <div class="view-mode" id="viewMode">
+                    <pre id="noteContent"></pre>
+                </div>
+                <div class="edit-mode hidden" id="editMode">
+                    <textarea id="editNoteContent"></textarea>
+                    <button class="save-edit-button" id="saveEditBtn">
+                        <i class="fas fa-check"></i> Save Changes
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
-    <div class="hospital-card">
-        <div class="hospital-logo">🏥</div>
-        <div>
-            <h3>Mubende Regional Referral Hospital</h3>
-            <p>2024-Present</p>
-            <p>xanuunada haweenka ku dhaca • </p>
-        </div>
-    </div>
-</section>
-  <!-- About Section -->
-  <section class="about-section">
-    <h2>My Medical Philosophy</h2>
-    <p>[Waxaan aaminsanahay in daryeelka caafimaadku uu yahay xuquuq aasaasi ah oo qof kasta uu mudan yahay. Daaweyntu waa in aysan kaliya xakamayn xanuunka, balse ay kor u qaaddo tayada nolosha bukaanka. Waxaan xoogga saaraa daaweyn cilmi ku dhisan, naxariis leh, iyo horumarin joogto ah si aan u hubiyo in bukaankaygu helaan daryeel caafimaad oo heer sare ah. Caafimaadku maaha shaqo kaliya, waa ballanqaad aan u hayo bulshada.]</p>
-    <div class="credentials">
-        <div class="credential-item">🎓 dhakhtarka cudurada guud</div>
-        <div class="credential-item">📜 dhakhtarka haweenka iyo caruurta</div>
-    </div>
-</section>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Gallery</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            background-color: #f8f8f8;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 15px;
-        }
-
-        h2 {
-            margin-bottom: 15px;
-            font-size: 1.5rem;
-        }
-
-        .work-gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-            gap: 15px;
-        }
-        .gallery-item {
-            border: 1px solid #ddd;
-            background-color: white;
-            border-radius: 8px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            aspect-ratio: 1 / 1;
-        }
-
-        .gallery-item:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        /* Modal styles */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.9);
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-        }
-        .modal img {
-            max-width: 90%;
-            max-height: 90vh;
-            object-fit: contain;
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            color: #f1f1f1;
-            font-size: 30px;
-            font-weight: bold;
-            cursor: pointer;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h2>Work Gallery</h2>
-        <section class="work-gallery" id="gallery"></section>
-    </div>
-
-    <!-- Modal for full-size image view -->
-    <div id="imageModal" class="modal" onclick="closeModal()">
-        <span class="close-modal">&times;</span>
-        <img id="modalImage" src="" alt="Full size image">
-    </div>
-    <script>
-        // List of image URLs hosted on GitHub
-        const imageUrls = [
-            "https://raw.githubusercontent.com/adamoas12/adamo/main/2023-03-28%2019.20.15.jpg",
-            "https://raw.githubusercontent.com/yourusername/yourrepository/main/conference.jpg",
-            "https://raw.githubusercontent.com/yourusername/yourrepository/main/team.jpg",
-            "https://raw.githubusercontent.com/yourusername/yourrepository/main/office.jpg",
-            "https://raw.githubusercontent.com/yourusername/yourrepository/main/meeting.jpg"
-        ];
-
-        // Dynamically populate gallery
-        const gallery = document.getElementById("gallery");
-        imageUrls.forEach(src => {
-            const div = document.createElement("div");
-            div.classList.add("gallery-item");
-            div.innerHTML = `<img src="${src}" alt="Gallery Image" onclick="openModal('${src}')">`;
-            gallery.appendChild(div);
-        });
-
-        // Modal functions
-        function openModal(imgSrc) {
-            const modal = document.getElementById("imageModal");
-            const modalImg = document.getElementById("modalImage");
-            modal.style.display = "flex";
-            modalImg.src = imgSrc;
-        }
-
-        function closeModal() {
-            document.getElementById("imageModal").style.display = "none";
-        }
-
-        // Close modal when pressing ESC
-        document.addEventListener("keydown", function(event) {
-            if (event.key === "Escape") {
-                closeModal();
-            }
-        });
-    </script>
-
-    <script>
-        // Theme Toggle Function
-        function toggleTheme() {
-            document.body.classList.toggle('dark-mode');
-            const toggleBtn = document.querySelector('.theme-toggle');
-            toggleBtn.textContent = document.body.classList.contains('dark-mode') ? '☀️' : '🌓';
-        }
-    </script>
+    
+    <script src="script.js"></script>
 </body>
 </html>
